@@ -1,16 +1,23 @@
 package chess;
 
-import chess.pieces.Piece;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import chess.pieces.King;
+import chess.pieces.Knight;
+import chess.pieces.Piece;
+import chess.pieces.Queen;
+import chess.pieces.Rook;
 
-/**
- * Basic unit tests for the GameState class
- */
 public class GameStateTest {
 
     private GameState state;
@@ -49,4 +56,26 @@ public class GameStateTest {
         assertTrue("A queen should be at d8", blackQueen instanceof Queen);
         assertEquals("The queen at d8 should be owned by Black", Player.Black, blackQueen.getOwner());
     }
+    
+    @Test
+    public void testAllMoves() {
+        state.placePiece(new King(Player.White), new Position("d4"));
+        state.placePiece(new Knight(Player.White), new Position("e4"));
+        
+        List<Move> allMoves = state.getPossibleMoves();
+        List<Move> expectedAllMoves = toMovesList("d4,d5","d4,d3","d4,c4","d4,e5","d4,c5","d4,e3","d4,c3","e4,f6","e4,f2","e4,d6","e4,d2","e4,g5","e4,g3","e4,c5","e4,c3");
+        
+        assertThat(allMoves, is(expectedAllMoves));
+    }
+    
+    private List<Move> toMovesList(String... moves) {
+        List<Move> movesList = new ArrayList<Move>();
+        for (String move: moves) {
+            String[] tokens = move.split(",");
+            movesList.add(new Move(new Position(tokens[0]), new Position(tokens[1])));
+        }
+        return movesList;
+    }
 }
+
+

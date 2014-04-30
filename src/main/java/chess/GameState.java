@@ -1,30 +1,25 @@
 package chess;
 
 
-import chess.pieces.*;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * Class that represents the current state of the game.  Basically, what pieces are in which positions on the
- * board.
- */
+import chess.pieces.Bishop;
+import chess.pieces.King;
+import chess.pieces.Knight;
+import chess.pieces.Pawn;
+import chess.pieces.Piece;
+import chess.pieces.Queen;
+import chess.pieces.Rook;
+
 public class GameState {
 
-    /**
-     * The current player
-     */
     private Player currentPlayer = Player.White;
 
-    /**
-     * A map of board positions to pieces at that position
-     */
     private Map<Position, Piece> positionToPieceMap;
-
-    /**
-     * Create the game state.
-     */
+    
     public GameState() {
         positionToPieceMap = new HashMap<Position, Piece>();
     }
@@ -33,9 +28,6 @@ public class GameState {
         return currentPlayer;
     }
 
-    /**
-     * Call to initialize the game state into the starting positions
-     */
     public void reset() {
         // White Pieces
         placePiece(new Rook(Player.White), new Position("a1"));
@@ -74,31 +66,47 @@ public class GameState {
         placePiece(new Pawn(Player.Black), new Position("h7"));
     }
 
-    /**
-     * Get the piece at the position specified by the String
-     * @param colrow The string indication of position; i.e. "d5"
-     * @return The piece at that position, or null if it does not exist.
-     */
     public Piece getPieceAt(String colrow) {
         Position position = new Position(colrow);
         return getPieceAt(position);
     }
 
-    /**
-     * Get the piece at a given position on the board
-     * @param position The position to inquire about.
-     * @return The piece at that position, or null if it does not exist.
-     */
     public Piece getPieceAt(Position position) {
         return positionToPieceMap.get(position);
     }
-
-    /**
-     * Method to place a piece at a given position
-     * @param piece The piece to place
-     * @param position The position
-     */
-    private void placePiece(Piece piece, Position position) {
+    
+    protected void placePiece(Piece piece, Position position) {
         positionToPieceMap.put(position, piece);
+    }
+    
+    public void movePiece(Position oldPosition, Position newPosition) {
+        checkEmptyPosition(newPosition);
+        checkFilledPosition(oldPosition);
+        Piece piece = getPieceAt(oldPosition);
+        positionToPieceMap.remove(oldPosition);
+        positionToPieceMap.put(newPosition, piece);
+    }
+
+    private void checkEmptyPosition(Position newPosition) {
+        if (positionToPieceMap.get(newPosition)!=null) {
+            throw new RuntimeException("Position " + newPosition + " is not empty");
+        }
+    }
+    
+    private void checkFilledPosition(Position newPosition) {
+        if (positionToPieceMap.get(newPosition)==null) {
+            throw new RuntimeException("Position " + newPosition + " is empty");
+        }
+    }
+    
+    public List<Move> getPossibleMoves() {
+        List<Move> moves = new ArrayList<Move>();
+        for (Position fromPosition : positionToPieceMap.keySet()) {
+            Piece piece = positionToPieceMap.get(fromPosition);
+            for (Position toPosition: piece.getTargets(this, fromPosition)) {
+                moves.add(new Move(fromPosition, toPosition));
+            }
+        }
+        return moves;
     }
 }

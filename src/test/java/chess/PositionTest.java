@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static junit.framework.Assert.*;
 
-/**
- * Basic Unit Tests for the Position class
- */
 public class PositionTest {
 
     @Test

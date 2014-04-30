@@ -4,9 +4,6 @@ import chess.pieces.Piece;
 
 import java.io.*;
 
-/**
- * This class provides the basic CLI interface to the Chess game.
- */
 public class CLI {
     private static final String NEWLINE = System.getProperty("line.separator");
 
@@ -21,18 +18,10 @@ public class CLI {
         writeOutput("Welcome to Chess!");
     }
 
-    /**
-     * Write the string to the output
-     * @param str The string to write
-     */
     private void writeOutput(String str) {
         this.outStream.println(str);
     }
 
-    /**
-     * Retrieve a string from the console, returning after the user hits the 'Return' key.
-     * @return The input from the user, or an empty-length string if they did not type anything.
-     */
     private String getInput() {
         try {
             this.outStream.print("> ");

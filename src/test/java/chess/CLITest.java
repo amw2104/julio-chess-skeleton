@@ -14,9 +14,6 @@ import java.util.List;
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Basic unit tests for the CLITest
- */
 @RunWith(MockitoJUnitRunner.class)
 public class CLITest {
 
@@ -26,9 +23,6 @@ public class CLITest {
     @Mock
     private InputStream testIn;
 
-    /**
-     * Make sure the CLI initially prints a welcome message
-     */
     @Test
     public void testCLIWritesWelcomeMessage() {
         new CLI(testIn, testOut);
@@ -40,9 +34,6 @@ public class CLITest {
         assertTrue("The CLI should initially print a welcome message", message.startsWith("Welcome"));
     }
 
-    /**
-     * Test that the CLI can initially accept input
-     */
     @Test
     public void testHelpCommand() throws Exception {
         runCliWithInput("help");

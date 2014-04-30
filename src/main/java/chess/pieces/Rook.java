@@ -1,10 +1,12 @@
 package chess.pieces;
 
-import chess.Player;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The 'Rook' class
- */
+import chess.GameState;
+import chess.Player;
+import chess.Position;
+
 public class Rook extends Piece {
 
     public Rook(Player owner) {
@@ -14,5 +16,11 @@ public class Rook extends Piece {
     @Override
     protected char getIdentifyingCharacter() {
         return 'r';
+    }
+    
+    @Override    
+    public List<Position> getTargets(GameState state, Position position) {
+        List<Position> tentative = new ArrayList<Position>();
+        return tentative;
     }
 }

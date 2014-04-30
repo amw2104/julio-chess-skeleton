@@ -1,10 +1,12 @@
 package chess.pieces;
 
-import chess.Player;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The Pawn
- */
+import chess.GameState;
+import chess.Player;
+import chess.Position;
+
 public class Pawn extends Piece {
     public Pawn(Player owner) {
         super(owner);
@@ -13,5 +15,11 @@ public class Pawn extends Piece {
     @Override
     protected char getIdentifyingCharacter() {
         return 'p';
+    }
+    
+    @Override    
+    public List<Position> getTargets(GameState state, Position position) {
+        List<Position> tentative = new ArrayList<Position>();
+        return tentative;
     }
 }

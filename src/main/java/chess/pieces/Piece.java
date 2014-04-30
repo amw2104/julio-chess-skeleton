@@ -1,10 +1,11 @@
 package chess.pieces;
 
-import chess.Player;
+import java.util.List;
 
-/**
- * A base class for chess pieces
- */
+import chess.GameState;
+import chess.Player;
+import chess.Position;
+
 public abstract class Piece {
     private final Player owner;
 
@@ -26,4 +27,33 @@ public abstract class Piece {
     }
 
     protected abstract char getIdentifyingCharacter();
+    
+    public abstract List<Position> getTargets(GameState state, Position position);
+
+    private String getId() {
+        return "" + getIdentifier() + getIdentifyingCharacter();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getId().hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Piece other = (Piece) obj;
+        if (this.getId() != other.getId())
+            return false;
+        return true;
+    }
+
 }
