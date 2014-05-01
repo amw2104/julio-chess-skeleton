@@ -1,7 +1,10 @@
 package chess;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class Move {
-    
+
     private Position from;
     private Position to;
 
@@ -9,7 +12,7 @@ public class Move {
         this.from = from;
         this.to = to;
     }
-    
+
     public Position getFrom() {
         return from;
     }
@@ -20,38 +23,17 @@ public class Move {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((from == null) ? 0 : from.hashCode());
-        result = prime * result + ((to == null) ? 0 : to.hashCode());
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Move other = (Move) obj;
-        if (from == null) {
-            if (other.from != null)
-                return false;
-        } else if (!from.equals(other.from))
-            return false;
-        if (to == null) {
-            if (other.to != null)
-                return false;
-        } else if (!to.equals(other.to))
-            return false;
-        return true;
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public String toString() {
-        return "Move [from=" + from + ", to=" + to + "]";
+        return "" + from.getColumn() + from.getRow() + "," + to.getColumn() + to.getRow();
     }
-    
+
 }

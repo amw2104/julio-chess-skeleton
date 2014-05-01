@@ -53,7 +53,7 @@ public class CLI {
                 } else if (input.equals("board")) {
                     writeOutput("Current Game:");
                 } else if (input.equals("list")) {
-                    writeOutput("====> List Is Not Implemented (yet) <====");
+                    showPossibleMoves();
                 } else if (input.startsWith("move")) {
                     writeOutput("====> Move Is Not Implemented (yet) <====");
                 } else {
@@ -81,10 +81,14 @@ public class CLI {
         writeOutput("    'list'                       List all possible moves");
         writeOutput("    'move <colrow> <colrow>'     Make a move");
     }
+    
+    private void showPossibleMoves() {
+       writeOutput("White's Possible Moves:");
+       for (Move move : gameState.getPossibleMoves(Player.White)) {
+           writeOutput(move.toString());
+       }
+    }
 
-    /**
-     * Display the board for the user(s)
-     */
     String getBoardAsString() {
         StringBuilder builder = new StringBuilder();
         builder.append(NEWLINE);

@@ -1,6 +1,5 @@
 package chess;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,7 @@ public class GameState {
     private Player currentPlayer = Player.White;
 
     private Map<Position, Piece> positionToPieceMap;
-    
+
     public GameState() {
         positionToPieceMap = new HashMap<Position, Piece>();
     }
@@ -74,11 +73,15 @@ public class GameState {
     public Piece getPieceAt(Position position) {
         return positionToPieceMap.get(position);
     }
-    
+
+    public Piece getPieceAt(int columnNumber, int row) {
+        return positionToPieceMap.get(new Position(columnNumber, row));
+    }
+
     protected void placePiece(Piece piece, Position position) {
         positionToPieceMap.put(position, piece);
     }
-    
+
     public void movePiece(Position oldPosition, Position newPosition) {
         checkEmptyPosition(newPosition);
         checkFilledPosition(oldPosition);
@@ -88,23 +91,25 @@ public class GameState {
     }
 
     private void checkEmptyPosition(Position newPosition) {
-        if (positionToPieceMap.get(newPosition)!=null) {
+        if (positionToPieceMap.get(newPosition) != null) {
             throw new RuntimeException("Position " + newPosition + " is not empty");
         }
     }
-    
+
     private void checkFilledPosition(Position newPosition) {
-        if (positionToPieceMap.get(newPosition)==null) {
+        if (positionToPieceMap.get(newPosition) == null) {
             throw new RuntimeException("Position " + newPosition + " is empty");
         }
     }
-    
-    public List<Move> getPossibleMoves() {
+
+    public List<Move> getPossibleMoves(Player player) {
         List<Move> moves = new ArrayList<Move>();
         for (Position fromPosition : positionToPieceMap.keySet()) {
             Piece piece = positionToPieceMap.get(fromPosition);
-            for (Position toPosition: piece.getTargets(this, fromPosition)) {
-                moves.add(new Move(fromPosition, toPosition));
+            if (piece.getOwner().equals(player)) {
+                for (Position toPosition : piece.getTargets(this, fromPosition)) {
+                    moves.add(new Move(fromPosition, toPosition));
+                }
             }
         }
         return moves;

@@ -7,9 +7,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import chess.pieces.Knight;
+import chess.pieces.Bishop;
 
-public class KnightTest {
+public class BishopTest {
     
     private GameState initialState;
 
@@ -19,8 +19,12 @@ public class KnightTest {
     }
     
     @Test
-    public void knightMoves() {
-        assertThat(new Knight(Player.White).getTargets(initialState, new Position("d4")), is(toPositionList("e6", "e2", "c6", "c2", "f5", "f3", "b5", "b3")));
+    public void bishopMoves() {
+        assertThat(new Bishop(Player.White).getTargets(initialState, new Position("d4")), is(toPositionList("e5", "f6", "g7", "h8", "c5", "b6", "a7", "e3", "f2", "g1", "c3", "b2", "a1")));
     }
-
+    
 }
+
+
+
+

@@ -1,10 +1,8 @@
 package chess;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertThat;
+import static chess.ListHelpers.toPositionList;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -214,15 +212,6 @@ public class MovesTest {
     public void returnsSouthWestEmptyMoves() {
         assertThat(Moves.getSouthWest(Player.Black, initialState, new Position("h8"), 3), is(toPositionList()));
         assertThat(Moves.getSouthWest(Player.Black, initialState, new Position("h3"), 3), is(toPositionList("g2","f1")));
-    }
-    
-    
-    private List<Position> toPositionList(String... positions) {
-        List<Position> positionsList = new ArrayList<Position>();
-        for (String position: positions) {
-            positionsList.add(new Position(position));
-        }
-        return positionsList;
     }
 
 }

@@ -19,7 +19,15 @@ public class Queen extends Piece{
     
     @Override    
     public List<Position> getTargets(GameState state, Position position) {
-        List<Position> tentative = new ArrayList<Position>();
-        return tentative;
+        List<Position> targets = new ArrayList<Position>();
+        targets.addAll(Moves.getNorth(getOwner(), state, position, 8));
+        targets.addAll(Moves.getSouth(getOwner(), state, position, 8));
+        targets.addAll(Moves.getEast(getOwner(), state, position, 8));
+        targets.addAll(Moves.getWest(getOwner(), state, position, 8));
+        targets.addAll(Moves.getNorthEast(getOwner(), state, position, 8));
+        targets.addAll(Moves.getNorthWest(getOwner(), state, position, 8));
+        targets.addAll(Moves.getSouthEast(getOwner(), state, position, 8));
+        targets.addAll(Moves.getSouthWest(getOwner(), state, position, 8));
+        return targets;
     }
 }

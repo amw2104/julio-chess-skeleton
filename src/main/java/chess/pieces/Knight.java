@@ -20,12 +20,16 @@ public class Knight extends Piece {
     @Override    
     public List<Position> getTargets(GameState state, Position position) {
         List<Position> tentative = new ArrayList<Position>();
+        
         addPosition(tentative, position.getColumnNumber() + 1, position.getRow() + 2);
         addPosition(tentative, position.getColumnNumber() + 1, position.getRow() - 2);
+        
         addPosition(tentative, position.getColumnNumber() - 1, position.getRow() + 2);
         addPosition(tentative, position.getColumnNumber() - 1, position.getRow() - 2);
+        
         addPosition(tentative, position.getColumnNumber() + 2, position.getRow() + 1);
         addPosition(tentative, position.getColumnNumber() + 2, position.getRow() - 1);
+        
         addPosition(tentative, position.getColumnNumber() - 2, position.getRow() + 1);
         addPosition(tentative, position.getColumnNumber() - 2, position.getRow() - 1);
         

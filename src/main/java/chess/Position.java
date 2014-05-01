@@ -1,12 +1,17 @@
 package chess;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class Position {
+
     public static final int MIN_ROW = 1;
     public static final int MAX_ROW = 8;
     public static final char MIN_COLUMN = 'a';
     public static final char MAX_COLUMN = 'h';
     public static final char MIN_COLUMN_NUMBER = 1;
     public static final char MAX_COLUMN_NUMBER = 8;
+
     private int row;
     private char column;
 
@@ -14,10 +19,10 @@ public class Position {
         this.row = row;
         this.column = column;
     }
-    
+
     public Position(int columnNumber, int row) {
         this.row = row;
-        this.column = (char) ('a' + (columnNumber-1));
+        this.column = (char) ('a' + (columnNumber - 1));
     }
 
     public Position(String colrow) {
@@ -31,31 +36,19 @@ public class Position {
     public char getColumn() {
         return column;
     }
-    
+
     public int getColumnNumber() {
         return column - 'a' + 1;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Position position = (Position) o;
-
-        if (column != position.column) return false;
-
-        //noinspection RedundantIfStatement
-        if (row != position.row) return false;
-
-        return true;
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override
-    public int hashCode() {
-        int result = row;
-        result = 31 * result + (int) column;
-        return result;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
